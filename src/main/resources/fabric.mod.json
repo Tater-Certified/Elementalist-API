@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "elementalist-api",
+  "version": "${version}",
+  "name": "Elementalist Api",
+  "description": "The API used for server-side spell creation",
+  "authors": [
+    "QPCrummer",
+    "KJP12"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/elementalist-api/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.tatercertified.elementalistapi.ElementalistApi"
+    ]
+  },
+  "mixins": [
+    "elementalist-api.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.12",
+    "fabric": "*",
+    "minecraft": "1.19.3"
+  }
+}
