@@ -2,10 +2,8 @@ package com.github.tatercertified.elementalistapi.spell;
 
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class BasicProjectileSpell extends BasicSpell{
@@ -26,10 +24,11 @@ public class BasicProjectileSpell extends BasicSpell{
     }
 
     private void launchProjectile(ServerPlayerEntity user, World world) {
-        //TODO Make the target entity actually summon :p
-        TargetEntity entity = (TargetEntity) EntityType.Builder.create((type, world1) -> new TargetEntity(EntityType.ARROW, world, speed), SpawnGroup.MISC).build("target").spawnFromItemStack(user.getWorld(), ItemStack.EMPTY, user, user.getBlockPos().up(), SpawnReason.NATURAL, true, false);
-        assert entity != null;
-        entity.setPosition(user.getX(), user.getEyeY() - 0.25, user.getZ());
+        TargetEntity entity = new TargetEntity(EntityType.ARROW, world, 0.65F, this);
+        world.spawnEntity(entity);
+        Vec3d position = new Vec3d(user.getX(), user.getEyeY() - 0.25, user.getZ());
+        entity.setPosition(position);
+        entity.start_pos = position;
         entity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, speed, 1.0F);
     }
 }
