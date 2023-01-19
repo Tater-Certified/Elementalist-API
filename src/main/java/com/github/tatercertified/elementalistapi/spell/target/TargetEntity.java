@@ -1,8 +1,9 @@
 package com.github.tatercertified.elementalistapi.spell.target;
 
-import com.github.tatercertified.elementalistapi.spell.BasicSpell;
+import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -15,18 +16,21 @@ import net.minecraft.world.World;
 public class TargetEntity extends PersistentProjectileEntity implements PolymerEntity {
 
     protected float speed;
-    protected BasicSpell spell;
+    protected BasicProjectileSpell spell;
     protected double distance = 100;
+    protected ServerPlayerEntity user;
     public Vec3d start_pos;
-    public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicSpell spell) {
+    public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicProjectileSpell spell, ServerPlayerEntity user) {
         super(entityType, world);
         this.speed = speed;
         this.spell = spell;
+        this.user = user;
     }
-    public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicSpell spell, double distance) {
+    public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicProjectileSpell spell, ServerPlayerEntity user, double distance) {
         super(entityType, world);
         this.speed = speed;
         this.spell = spell;
+        this.user = user;
         this.distance = distance;
     }
 
@@ -53,20 +57,25 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
     @Override
     public void tick() {
         if (checkDistance()) {
-            hitBlock();
+            spell.onBlockCollision(user, this.getPos());
+            this.remove(RemovalReason.DISCARDED);
         }
         super.tick();
     }
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
-        hitBlock();
+        spell.onBlockCollision(user, blockHitResult.getPos());
+        this.remove(RemovalReason.DISCARDED);
         super.onBlockHit(blockHitResult);
     }
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        hitEntity();
+        if (entityHitResult.getEntity() instanceof LivingEntity) {
+            spell.onEntityCollision(user, (LivingEntity) entityHitResult.getEntity());
+        }
+        this.remove(RemovalReason.DISCARDED);
         super.onEntityHit(entityHitResult);
     }
 
@@ -76,15 +85,5 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
      */
     private boolean checkDistance() {
         return this.distanceTraveled == distance;
-    }
-
-    private void hitBlock() {
-        //hitBlock event
-        this.remove(RemovalReason.DISCARDED);
-    }
-
-    private void hitEntity() {
-        //hitEntity event
-        this.remove(RemovalReason.DISCARDED);
     }
 }

@@ -32,12 +32,6 @@ public abstract class PersistentProjectileEntityMixin extends ProjectileEntity {
         }
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setPosition(DDD)V"))
-    public void tick(CallbackInfo ci) {
-        setVelocityClient(this.getVelocity().x, this.getVelocity().y, this.getVelocity().z);
-    }
-
-
     /**
      * Makes sure to prevent the arrow damaging entities
      */
