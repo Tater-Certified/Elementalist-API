@@ -1,5 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell.target;
 
+import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
@@ -13,12 +14,15 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ListIterator;
+
 public class TargetEntity extends PersistentProjectileEntity implements PolymerEntity {
 
     protected float speed;
     protected BasicProjectileSpell spell;
     protected double distance = 100;
     protected ServerPlayerEntity user;
+
     public Vec3d start_pos;
     public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicProjectileSpell spell, ServerPlayerEntity user) {
         super(entityType, world);
@@ -26,6 +30,7 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
         this.spell = spell;
         this.user = user;
     }
+
     public TargetEntity(EntityType<ArrowEntity> entityType, World world, float speed, BasicProjectileSpell spell, ServerPlayerEntity user, double distance) {
         super(entityType, world);
         this.speed = speed;
@@ -60,6 +65,9 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
             spell.onBlockCollision(user, this.getPos());
             this.remove(RemovalReason.DISCARDED);
         }
+        if (spell.particleEffects != null) {
+            tickParticles();
+        }
         super.tick();
     }
 
@@ -85,5 +93,12 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
      */
     private boolean checkDistance() {
         return this.distanceTraveled == distance;
+    }
+
+    /**
+     * Ticks all ParticleEffects attached to a Spell
+     */
+    private void tickParticles() {
+        spell.particleEffects.removeIf(effect -> !effect.tickParticle());
     }
 }
