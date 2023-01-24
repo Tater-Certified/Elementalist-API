@@ -1,5 +1,6 @@
 package com.github.tatercertified.elementalistapi.mixin;
 
+import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.spell.BasicRapidFireSpell;
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.summoner.Summoner;
@@ -54,14 +55,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
      */
     public void tickCooldowns() {
         if (!spells.isEmpty()) {
-            ListIterator<BasicSpell> iterator = spells.listIterator();
-            while (iterator.hasNext()) {
-                BasicSpell spell = iterator.next();
+            ListIterator<BasicSpell> iterator_cooldown = spells.listIterator();
+            while (iterator_cooldown.hasNext()) {
+                BasicSpell spell = iterator_cooldown.next();
                 if(spell.active_cooldown != 0) {
                     spell.active_cooldown--;
                 } else {
                     spell.resetCooldown();
-                    iterator.remove();
+                    iterator_cooldown.remove();
                 }
             }
         }
@@ -72,15 +73,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
      */
     public void tickRapidFireDelays() {
         if (!delay.isEmpty()) {
-            ListIterator<BasicRapidFireSpell> iterator = delay.listIterator();
-            while (iterator.hasNext()) {
-                BasicRapidFireSpell spell = iterator.next();
+            ListIterator<BasicRapidFireSpell> iterator_delay = delay.listIterator();
+            while (iterator_delay.hasNext()) {
+                BasicRapidFireSpell spell = iterator_delay.next();
                 if(spell.active_fire_delay != 0) {
                     spell.active_fire_delay--;
                 } else {
                     spell.resetFireDelay();
                     if (!spell.launchNewTargetEntity(((ServerPlayerEntity)(Object)this), world)) {
-                        iterator.remove();
+                        iterator_delay.remove();
                     }
                 }
             }

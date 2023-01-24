@@ -3,16 +3,19 @@ package com.github.tatercertified.elementalistapi.testmod;
 import com.github.tatercertified.elementalistapi.events.impact.Burn;
 import com.github.tatercertified.elementalistapi.events.impact.Damage;
 import com.github.tatercertified.elementalistapi.events.impact.Stun;
+import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 public class Spell2 extends BasicProjectileSpell {
 
 
-    public Spell2(int level, int cooldown, String name, double distance, float speed) {
-        super(level, cooldown, name, distance, speed);
+    public Spell2(int level, int cooldown, String name, double distance, float speed, ArrayList<BasicParticle> particleEffects) {
+        super(level, cooldown, name, distance, speed, particleEffects);
     }
 
     @Override

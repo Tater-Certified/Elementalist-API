@@ -1,5 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
+import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -7,13 +8,15 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 public class BasicProjectileSpell extends BasicSpell{
 
     protected double distance;
     protected float speed;
 
-    public BasicProjectileSpell(int level, int cooldown, String name, double distance, float speed) {
-        super(level, cooldown, name);
+    public BasicProjectileSpell(int level, int cooldown, String name, double distance, float speed, ArrayList<BasicParticle> particleEffects) {
+        super(level, cooldown, name, particleEffects);
         this.distance = distance;
         this.speed = speed;
     }

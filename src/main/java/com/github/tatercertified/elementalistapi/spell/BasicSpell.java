@@ -1,8 +1,11 @@
 package com.github.tatercertified.elementalistapi.spell;
 
+import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
 
 public class BasicSpell {
 
@@ -11,11 +14,20 @@ public class BasicSpell {
     public int active_cooldown;
     public boolean usable;
     protected String name;
+    public ArrayList<BasicParticle> particleEffects;
 
-    public BasicSpell(int level, int cooldown, String name) {
+    /**
+     * Basic spell for all other spell types
+     * @param level level of spell
+     * @param cooldown cooldown in ticks
+     * @param name name of the spell
+     * @param particleEffects optional particle effects; set null to disable
+     */
+    public BasicSpell(int level, int cooldown, String name, ArrayList<BasicParticle> particleEffects) {
         this.level = level;
         this.cooldown = cooldown;
         this.name = name;
+        this.particleEffects = particleEffects;
         resetCooldown();
     }
 
