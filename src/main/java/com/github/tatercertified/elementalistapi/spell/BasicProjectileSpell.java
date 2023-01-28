@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -8,15 +8,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-
 public class BasicProjectileSpell extends BasicSpell{
 
     protected double distance;
     protected float speed;
 
-    public BasicProjectileSpell(int level, int cooldown, String name, double distance, float speed, ArrayList<BasicParticle> particleEffects) {
-        super(level, cooldown, name, particleEffects);
+    public BasicProjectileSpell(int level, int cooldown, String name, double distance, float speed) {
+        super(level, cooldown, name);
         this.distance = distance;
         this.speed = speed;
     }
@@ -39,6 +37,8 @@ public class BasicProjectileSpell extends BasicSpell{
         entity.setPosition(position);
         entity.start_pos = position;
         entity.setNoGravity(true);
+        entity.setOwner(user);
+        setTargets(entity);
         entity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, speed, 1.0F);
     }
 
@@ -54,5 +54,15 @@ public class BasicProjectileSpell extends BasicSpell{
      */
     public void onEntityCollision(ServerPlayerEntity user, LivingEntity damaged) {
         //Event Here
+    }
+
+    /**
+     * Initializes all Event's TargetEntity
+     * @param target TargetEntity to be set
+     */
+    private void setTargets(TargetEntity target) {
+        for (BasicSpellEvent event : events) {
+            event.addTarget(target);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.mixin;
 
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.BasicRapidFireSpell;
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.summoner.Summoner;
@@ -28,6 +28,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     @Shadow public abstract void sendMessage(Text message);
     public ArrayList<BasicSpell> spells = new ArrayList<>();
     public ArrayList<BasicRapidFireSpell> delay = new ArrayList<>();
+    public ArrayList<BasicSpellEvent> events = new ArrayList<>();
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -38,6 +39,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
         tickCooldowns();
         tickRapidFireDelays();
         tickSpellHUD();
+        tickEvents();
     }
 
     @Override
@@ -48,6 +50,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     @Override
     public ArrayList<BasicRapidFireSpell> spell_delays() {
         return delay;
+    }
+
+    @Override
+    public ArrayList<BasicSpellEvent> events() {
+        return events;
     }
 
     /**
@@ -100,6 +107,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
                 cooldown = "";
             }
             this.sendMessage(Text.literal(current_spell.getSpellName() + cooldown), true);
+        }
+    }
+
+    /**
+     * Ticks all BasicEvents for a Spell
+     */
+    public void tickEvents() {
+        if (!events.isEmpty()) {
+            events.removeIf(BasicSpellEvent::tick);
         }
     }
 }

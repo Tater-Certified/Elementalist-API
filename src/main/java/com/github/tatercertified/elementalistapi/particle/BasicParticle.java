@@ -1,28 +1,40 @@
 package com.github.tatercertified.elementalistapi.particle;
 
+import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
-public class BasicParticle {
+public class BasicParticle extends BasicSpellEvent {
 
-    protected int start_tick;
-    protected int duration;
-    private int stop_tick;
     protected ParticleEffect particle;
+
     public BasicParticle(int start_tick, int duration, ParticleEffect particle) {
-        this.start_tick = start_tick;
-        this.duration = duration;
-        stop_tick = start_tick + duration;
+        super(start_tick, duration);
         this.particle = particle;
     }
 
-    /**
-     * Executes particle ticking
-     * @return If the particle should continue being ticked
-     */
-    public boolean tickParticle() {
-        //Execute per-tick code here
+    @Override
+    public boolean tick() {
+        createParticle();
+        return super.tick();
+    }
 
-        stop_tick--;
-        return stop_tick != start_tick;
+    /**
+     * Gets the current position of the TargetEntity
+     * @return Vec3d of the position
+     */
+    public Vec3d getPos() {
+        return target.getPos();
+    }
+
+    /**
+     * Summons a particle for the trail
+     */
+    public void createParticle() {
+        ServerWorld world = target.getServer().getWorld(target.getWorld().getRegistryKey());
+        assert world != null;
+        world.spawnParticles(particle, getPos().x, getPos().y, getPos().z, 1, 0, 0, 0, 1.0);
     }
 }
