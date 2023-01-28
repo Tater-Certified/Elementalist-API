@@ -1,11 +1,8 @@
 package com.github.tatercertified.elementalistapi.spell;
 
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class BasicRapidFireSpell extends BasicProjectileSpell{
 
@@ -14,8 +11,8 @@ public class BasicRapidFireSpell extends BasicProjectileSpell{
     protected int fire_delay;
     public int active_fire_delay;
 
-    public BasicRapidFireSpell(int level, int cooldown, String name, double distance, float speed, int count, int fire_delay, ArrayList<BasicParticle> particleEffects) {
-        super(level, cooldown, name, distance, speed, particleEffects);
+    public BasicRapidFireSpell(int level, int cooldown, String name, double distance, float speed, int count, int fire_delay) {
+        super(level, cooldown, name, distance, speed);
         this.count = count;
         this.fire_delay = fire_delay;
         this.active_fire_delay = fire_delay;

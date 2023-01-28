@@ -1,6 +1,5 @@
 package com.github.tatercertified.elementalistapi.spell.target;
 
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
@@ -13,8 +12,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.ListIterator;
 
 public class TargetEntity extends PersistentProjectileEntity implements PolymerEntity {
 
@@ -65,9 +62,6 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
             spell.onBlockCollision(user, this.getPos());
             this.remove(RemovalReason.DISCARDED);
         }
-        if (spell.particleEffects != null) {
-            tickParticles();
-        }
         super.tick();
     }
 
@@ -93,12 +87,5 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
      */
     private boolean checkDistance() {
         return this.distanceTraveled == distance;
-    }
-
-    /**
-     * Ticks all ParticleEffects attached to a Spell
-     */
-    private void tickParticles() {
-        spell.particleEffects.removeIf(effect -> !effect.tickParticle());
     }
 }

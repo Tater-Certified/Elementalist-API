@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
@@ -14,21 +14,21 @@ public class BasicSpell {
     public int active_cooldown;
     public boolean usable;
     protected String name;
-    public ArrayList<BasicParticle> particleEffects;
+
+    public ArrayList<BasicSpellEvent> events = new ArrayList<>();
 
     /**
      * Basic spell for all other spell types
      * @param level level of spell
      * @param cooldown cooldown in ticks
      * @param name name of the spell
-     * @param particleEffects optional particle effects; set null to disable
      */
-    public BasicSpell(int level, int cooldown, String name, ArrayList<BasicParticle> particleEffects) {
+    public BasicSpell(int level, int cooldown, String name) {
         this.level = level;
         this.cooldown = cooldown;
         this.name = name;
-        this.particleEffects = particleEffects;
         resetCooldown();
+        addEvents();
     }
 
     /**
@@ -37,6 +37,7 @@ public class BasicSpell {
     public void onCast(ServerPlayerEntity user, World world) {
         usable = false;
         ((ServerPlayerEntityAccessor)user).used_spells().add(this);
+        ((ServerPlayerEntityAccessor)user).events().addAll(events);
     }
 
     /**
@@ -61,5 +62,19 @@ public class BasicSpell {
      */
     public int getCooldown() {
         return cooldown;
+    }
+
+    /**
+     * @return Returns all BasicSpellEvents in a Spell
+     */
+    public ArrayList<BasicSpellEvent> listEvents() {
+        return events;
+    }
+
+    /**
+     * Adds BasicSpellEvents to events ArrayList
+     */
+    public void addEvents() {
+        //Add Events here
     }
 }
