@@ -9,7 +9,7 @@ public class BasicSpellEvent implements Cloneable {
     protected int start_tick;
     public int end_tick;
     public TargetEntity target;
-    private int tick = 0;
+    public int tick = 0;
 
     /**
      * Basic Event that all other events should extend for ServerPlayerEntity

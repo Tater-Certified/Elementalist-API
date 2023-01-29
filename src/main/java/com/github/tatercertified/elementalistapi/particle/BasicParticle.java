@@ -4,7 +4,6 @@ import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class BasicParticle extends BasicSpellEvent {
 
@@ -13,12 +12,6 @@ public class BasicParticle extends BasicSpellEvent {
     public BasicParticle(int start_tick, int duration, ParticleEffect particle) {
         super(start_tick, duration);
         this.particle = particle;
-    }
-
-    @Override
-    public boolean tick() {
-        createParticle();
-        return super.tick();
     }
 
     /**
@@ -32,9 +25,9 @@ public class BasicParticle extends BasicSpellEvent {
     /**
      * Summons a particle for the trail
      */
-    public void createParticle() {
+    public void createParticle(double x, double y, double z, int count, double speed) {
         ServerWorld world = target.getServer().getWorld(target.getWorld().getRegistryKey());
         assert world != null;
-        world.spawnParticles(particle, getPos().x, getPos().y, getPos().z, 1, 0, 0, 0, 1.0);
+        world.spawnParticles(particle, x, y, z, count, 0, 0, 0, speed);
     }
 }

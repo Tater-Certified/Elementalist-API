@@ -14,8 +14,10 @@ public class Wand extends Summoner {
 
     @Override
     public ArrayList<BasicSpell> addSpells() {
-        spells.add(new ProjectileTrailTest(1, 150, "Projectile Trail Test", 100, 0.6F));
+        spells.add(new ProjectileTrailTest(1, 150, "Projectile Trail Test", 100, 0.01F));
         spells.add(new RapidPTrailTest(2, 200, "Rapid-Fire Trails Test", 100, 0.6F, 10, 5));
+        spells.add(new StaticSpellTest(1, 400, "Static Spell Test"));
+        spells.add(new FollowTestSpell(1, 400, "Follow Test Spell"));
         return spells;
     }
 }
