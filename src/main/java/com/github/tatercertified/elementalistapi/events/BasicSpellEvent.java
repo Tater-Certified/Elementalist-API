@@ -3,7 +3,7 @@ package com.github.tatercertified.elementalistapi.events;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class BasicSpellEvent {
+public class BasicSpellEvent implements Cloneable {
 
     protected ServerPlayerEntity reference;
     protected int start_tick;
@@ -31,6 +31,15 @@ public class BasicSpellEvent {
     public BasicSpellEvent(int start_tick, int duration) {
         this.start_tick = start_tick;
         end_tick = start_tick + duration;
+    }
+
+    @Override
+    public BasicSpellEvent clone() {
+        try {
+            return (BasicSpellEvent) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     /**
