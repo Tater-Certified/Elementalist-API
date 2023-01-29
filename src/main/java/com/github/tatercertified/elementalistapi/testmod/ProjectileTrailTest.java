@@ -2,7 +2,7 @@ package com.github.tatercertified.elementalistapi.testmod;
 
 import com.github.tatercertified.elementalistapi.events.impact.Explode;
 import com.github.tatercertified.elementalistapi.events.impact.Stun;
-import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import com.github.tatercertified.elementalistapi.particle.functions.Sine;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -30,6 +30,6 @@ public class ProjectileTrailTest extends BasicProjectileSpell {
     @Override
     public void addEvents() {
         super.addEvents();
-        events.add(new BasicParticle(0, 10000, ParticleTypes.ELECTRIC_SPARK));
+        events.add(new Sine(0, 10000, 0.5, 4, ParticleTypes.SOUL));
     }
 }
