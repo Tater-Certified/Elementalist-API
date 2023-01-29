@@ -1,6 +1,5 @@
 package com.github.tatercertified.elementalistapi.spell;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -32,13 +31,12 @@ public class BasicProjectileSpell extends BasicSpell{
      */
     public void launchProjectile(ServerPlayerEntity user, World world) {
         TargetEntity entity = new TargetEntity(EntityType.ARROW, world, 0.65F, this, user);
+        entity.setOwner(user);
         world.spawnEntity(entity);
         Vec3d position = new Vec3d(user.getX(), user.getEyeY() - 0.25, user.getZ());
         entity.setPosition(position);
         entity.start_pos = position;
         entity.setNoGravity(true);
-        entity.setOwner(user);
-        setTargets(entity);
         entity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, speed, 1.0F);
     }
 
@@ -54,15 +52,5 @@ public class BasicProjectileSpell extends BasicSpell{
      */
     public void onEntityCollision(ServerPlayerEntity user, LivingEntity damaged) {
         //Event Here
-    }
-
-    /**
-     * Initializes all Event's TargetEntity
-     * @param target TargetEntity to be set
-     */
-    private void setTargets(TargetEntity target) {
-        for (BasicSpellEvent event : events) {
-            event.addTarget(target);
-        }
     }
 }

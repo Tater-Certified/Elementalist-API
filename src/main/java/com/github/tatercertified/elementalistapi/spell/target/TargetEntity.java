@@ -1,7 +1,10 @@
 package com.github.tatercertified.elementalistapi.spell.target;
 
+import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
+import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -12,6 +15,10 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TargetEntity extends PersistentProjectileEntity implements PolymerEntity {
 
@@ -81,11 +88,33 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
         super.onEntityHit(entityHitResult);
     }
 
+    @Override
+    public void setOwner(@Nullable Entity entity) {
+        super.setOwner(entity);
+        if (entity instanceof ServerPlayerEntity) {
+            ArrayList<BasicSpellEvent> dupe = new ArrayList<>();
+            for (BasicSpellEvent bse:spell.events) {
+                dupe.add(bse.clone());
+            }
+            setTarget(dupe);
+            ((ServerPlayerEntityAccessor)user).events().addAll(dupe);
+        }
+    }
+
     /**
      * Checks if the distance limit has been reached
      * @return true if distance limit is hit
      */
     private boolean checkDistance() {
         return this.distanceTraveled == distance;
+    }
+
+    /**
+     * Initializes all Event's TargetEntity
+     */
+    private void setTarget(ArrayList<BasicSpellEvent> arrayList) {
+        for (BasicSpellEvent event : arrayList) {
+            event.addTarget(this);
+        }
     }
 }

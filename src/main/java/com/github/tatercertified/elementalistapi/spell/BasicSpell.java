@@ -37,7 +37,6 @@ public class BasicSpell {
     public void onCast(ServerPlayerEntity user, World world) {
         usable = false;
         ((ServerPlayerEntityAccessor)user).used_spells().add(this);
-        ((ServerPlayerEntityAccessor)user).events().addAll(events);
     }
 
     /**
