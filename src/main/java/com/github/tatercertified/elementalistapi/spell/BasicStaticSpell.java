@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 
 public class BasicStaticSpell extends BasicSpell{
 
+    public TargetEntity entity;
+
     /**
      * Basic spell for stationary Spells
      *
@@ -31,7 +33,7 @@ public class BasicStaticSpell extends BasicSpell{
      * @param world User's World
      */
     private void placeMarkerTargetEntity(ServerPlayerEntity user, World world) {
-        TargetEntity entity = new TargetEntity(EntityType.ARROW, world, 0.65F, this, user);
+        entity = new TargetEntity(EntityType.ARROW, world, 0.65F, this, user);
         entity.setOwner(user);
         world.spawnEntity(entity);
         entity.setNoGravity(true);

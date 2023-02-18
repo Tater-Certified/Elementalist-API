@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.1-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -20,7 +20,7 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation include("eu.pb4:polymer-core:0.3.4+1.19.3")
+    modImplementation include("eu.pb4:polymer-core:0.3.8+1.19.3")
     modImplementation include("fr.catcore:server-translations-api:1.4.19+1.19.3")
     modImplementation include("eu.pb4:sgui:1.2.0+1.19.3")
     modImplementation("maven.modrinth:lazydfu:0.1.3")
