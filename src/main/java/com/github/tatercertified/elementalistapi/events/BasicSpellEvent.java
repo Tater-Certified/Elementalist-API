@@ -48,9 +48,11 @@ public class BasicSpellEvent implements Cloneable {
      */
     public boolean tick() {
         if(target != null && target.isRemoved()) {
+            finished();
             return true;
         }
         if(tick > end_tick) {
+            finished();
            return true;
         }
         if(tick >= start_tick) {
@@ -65,6 +67,13 @@ public class BasicSpellEvent implements Cloneable {
      */
     public void event() {
         //Main Event
+    }
+
+    /**
+     * Fired when the Event is finished
+     */
+    public void finished() {
+        //Removed Event
     }
 
     /**
