@@ -1,6 +1,5 @@
 package com.github.tatercertified.elementalistapi.testmod;
 
-import com.github.tatercertified.elementalistapi.events.time.KillTargetEntity;
 import com.github.tatercertified.elementalistapi.particle.ctdengine.CTDEngine;
 import com.github.tatercertified.elementalistapi.spell.BasicStaticSpell;
 import net.minecraft.particle.ParticleTypes;
@@ -25,9 +24,8 @@ public class CTDTestSpell extends BasicStaticSpell {
         super.addEvents();
         ArrayList<Vec3d> points = new ArrayList<>();
         points.add(new Vec3d(0,4,0));
-        points.add(new Vec3d(0,4,0));
+        points.add(new Vec3d(0,2,0));
         points.add(new Vec3d(12,0,0));
         events.add(new CTDEngine(0, 600, ParticleTypes.ELECTRIC_SPARK, points));
-        events.add(new KillTargetEntity(601, 0));
     }
 }

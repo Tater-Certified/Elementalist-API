@@ -3,6 +3,8 @@ package com.github.tatercertified.elementalistapi.particle.ctdengine;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -17,6 +19,10 @@ public class CTDExecutor extends SnowballEntity {
     private final double speed;
     private Vec3d current_goal;
     private final ParticleEffect particle;
+    private final ArrayList<Integer> ticks_times = new ArrayList<>();
+    private final ArrayList<Double> distances = new ArrayList<>();
+    private int counter = 0;
+    private final Vec3d origin = new Vec3d(0,0,0);
 
     public CTDExecutor(EntityType<? extends SnowballEntity> entityType, World world, Vec3d start, ArrayList<Vec3d> goals, int ticks, ParticleEffect particle, boolean persistent_particles) {
         super(entityType, world);
@@ -27,38 +33,72 @@ public class CTDExecutor extends SnowballEntity {
         this.persistent_particles = persistent_particles;
         speed = calcSpeed();
         current_goal = goals.get(0);
-        cached_velocity = calcVelocity(new Vec3d(0,0,0));
+        cached_velocity = calcVelocity();
+        calcTickTimes();
     }
 
+    @Override
+    protected void onCollision(HitResult hitResult) {
+    }
+
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+    }
 
     /**
      * Main Function for CTDExecutors. Traces paths.
      */
     public void draw() {
-        if (this.getPos().distanceTo(current_goal) < 0.1) {
-            if (goals.get(goals.indexOf(current_goal) + 1) != null) {
-                cached_velocity = calcVelocity(current_goal);
+        if (updateCounter()) {
+            if (hasNext()) {
                 current_goal = goals.get(goals.indexOf(current_goal) + 1);
+                cached_velocity = calcVelocity();
             }
-        } else {
-            this.getServer().getWorld(world.getRegistryKey()).spawnParticles(particle, this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 1.0);
-            this.setVelocity(cached_velocity);
         }
+        this.getServer().getWorld(world.getRegistryKey()).spawnParticles(particle, this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 1.0);
+        this.setVelocity(cached_velocity);
     }
 
-    private Vec3d calcVelocity(Vec3d start1) {
-        return new Vec3d((current_goal.x - start1.x)*speed, (current_goal.y - start1.y)*speed, (current_goal.z - start1.z)*speed);
+    private Vec3d calcVelocity() {
+        return new Vec3d(current_goal.x * speed, current_goal.y * speed, current_goal.z * speed);
     }
 
     private double calcSpeed() {
-        Vec3d reference = new Vec3d(0,0,0);
         double distance = 0;
-        goals.add(0,reference);
-        for (int i = 0; i + 1 < goals.size(); i++) {
-            distance = goals.get(i).distanceTo(goals.get(i+1)) + distance;
+        for (Vec3d goal : goals) {
+            double temp_distance = goal.distanceTo(origin);
+            distances.add(temp_distance);
+            distance = temp_distance + distance;
         }
-        goals.remove(0);
-        return distance / (ticks / 20F);
+        return distance / ticks;
     }
 
+    private void calcTickTimes() {
+        for (Double distance : distances) {
+            ticks_times.add((int) Math.round(distance/speed));
+        }
+    }
+
+    /**
+     * Counts the amount of time between points
+     * @return If it shouldn't continue on the same path
+     */
+    private boolean updateCounter() {
+        int max = ticks_times.get(goals.indexOf(current_goal));
+        if (counter >= max) {
+            counter = 0;
+            return true;
+        }
+        counter++;
+        return false;
+    }
+
+    /**
+     * Checks if an ArrayList has another index
+     * @return if ArrayList has another index
+     */
+    private boolean hasNext() {
+        int index = goals.indexOf(current_goal);
+        return goals.size() - 1 >= index + 1;
+    }
 }

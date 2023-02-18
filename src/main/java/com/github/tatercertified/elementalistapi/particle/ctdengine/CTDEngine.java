@@ -1,6 +1,7 @@
 package com.github.tatercertified.elementalistapi.particle.ctdengine;
 
 import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.math.Vec3d;
@@ -32,9 +33,14 @@ public class CTDEngine extends BasicParticle {
             target.world.spawnEntity(executor);
             executor.setPosition(target.getPos());
             executor.setNoGravity(true);
-            executor.setInvulnerable(true);
         }
         executor.draw();
         executor.velocityDirty = true;
+    }
+
+    @Override
+    public void finished() {
+        executor.remove(Entity.RemovalReason.DISCARDED);
+        target.remove(Entity.RemovalReason.DISCARDED);
     }
 }
