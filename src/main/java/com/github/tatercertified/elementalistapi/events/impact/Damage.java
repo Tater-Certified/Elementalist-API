@@ -2,6 +2,7 @@ package com.github.tatercertified.elementalistapi.events.impact;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class Damage {
@@ -12,7 +13,7 @@ public class Damage {
      * @param attacker Player that used the spell
      */
     public Damage(float dmg, LivingEntity hit, ServerPlayerEntity attacker) {
-        hit.damage(DamageSource.player(attacker), dmg);
+        hit.damage(hit.getDamageSources().playerAttack(attacker), dmg);
     }
 
     /**
@@ -21,6 +22,6 @@ public class Damage {
      * @param hit LivingEntity being hit
      */
     public Damage(float dmg, LivingEntity hit) {
-        hit.damage(DamageSource.MAGIC, dmg);
+        hit.damage(hit.getDamageSources().magic(), dmg);
     }
 }
