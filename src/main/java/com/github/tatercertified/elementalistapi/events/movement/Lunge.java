@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.events.movement;
 
-import com.github.tatercertified.elementalistapi.events.area.GrabNearEntities;
+import com.github.tatercertified.elementalistapi.util.EntityUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +38,7 @@ public class Lunge {
     }
 
     private ServerPlayerEntity findClosestEntity() {
-        List<ServerPlayerEntity> players = (List<ServerPlayerEntity>) new GrabNearEntities().quickGrabNearEntities(user, user.getBlockPos(), 200, ServerPlayerEntity.class);
+        List<ServerPlayerEntity> players = (List<ServerPlayerEntity>) EntityUtils.quickGrabNearEntities(user, user.getBlockPos(), 200, ServerPlayerEntity.class);
         ServerPlayerEntity nearest = null;
         double distance = 0;
         for (ServerPlayerEntity player : players) {

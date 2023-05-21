@@ -1,5 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
+import com.github.tatercertified.elementalistapi.events.time.KillTargetEntity;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -52,5 +53,10 @@ public class BasicProjectileSpell extends BasicSpell{
      */
     public void onEntityCollision(ServerPlayerEntity user, LivingEntity damaged) {
         //Event Here
+    }
+
+    @Override
+    public void addEvents() {
+        events.add(new KillTargetEntity(this.cooldown, 1));
     }
 }

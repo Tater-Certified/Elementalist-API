@@ -1,10 +1,10 @@
 package com.github.tatercertified.elementalistapi.events.movement;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class Follow extends BasicSpellEvent {
+public class Follow extends BasicDelayedSpellEvent {
     public Follow(int start_tick, int duration) {
         super(start_tick, duration);
     }

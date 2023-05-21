@@ -1,11 +1,11 @@
 package com.github.tatercertified.elementalistapi.particle;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
-public class BasicParticle extends BasicSpellEvent {
+public class BasicParticle extends BasicDelayedSpellEvent {
 
     protected ParticleEffect particle;
 

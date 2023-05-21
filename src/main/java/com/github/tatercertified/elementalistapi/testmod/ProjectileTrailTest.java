@@ -18,13 +18,13 @@ public class ProjectileTrailTest extends BasicProjectileSpell {
     @Override
     public void onEntityCollision(ServerPlayerEntity user, LivingEntity damaged) {
         super.onEntityCollision(user, damaged);
-        new Stun(100, damaged);
+        new Stun(100, damaged).event();
     }
 
     @Override
     public void onBlockCollision(ServerPlayerEntity user, Vec3d location) {
         super.onBlockCollision(user, location);
-        new Explode(4.0F, location, user);
+        new Explode(4.0F, location, user).event();
     }
 
     @Override

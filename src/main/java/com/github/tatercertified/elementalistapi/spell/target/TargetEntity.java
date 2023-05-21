@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell.target;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.BasicProjectileSpell;
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
@@ -92,9 +92,9 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
     public void setOwner(@Nullable Entity entity) {
         super.setOwner(entity);
         if (entity instanceof ServerPlayerEntity) {
-            ArrayList<BasicSpellEvent> dupe = new ArrayList<>();
-            for (BasicSpellEvent bse:spell.events) {
-                dupe.add(bse.clone());
+            ArrayList<BasicDelayedSpellEvent> dupe = new ArrayList<>();
+            for (BasicDelayedSpellEvent bse:spell.events) {
+                dupe.add((BasicDelayedSpellEvent) bse.clone());
             }
             setTarget(dupe);
             ((ServerPlayerEntityAccessor)user).events().addAll(dupe);
@@ -112,8 +112,8 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
     /**
      * Initializes all Event's TargetEntity
      */
-    private void setTarget(ArrayList<BasicSpellEvent> arrayList) {
-        for (BasicSpellEvent event : arrayList) {
+    private void setTarget(ArrayList<BasicDelayedSpellEvent> arrayList) {
+        for (BasicDelayedSpellEvent event : arrayList) {
             event.addTarget(this);
         }
     }

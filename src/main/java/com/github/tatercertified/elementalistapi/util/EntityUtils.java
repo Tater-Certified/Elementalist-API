@@ -1,4 +1,4 @@
-package com.github.tatercertified.elementalistapi.events.area;
+package com.github.tatercertified.elementalistapi.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -7,7 +7,8 @@ import net.minecraft.util.math.Box;
 
 import java.util.List;
 
-public class GrabNearEntities {
+public class EntityUtils {
+
     /**
      * Quickly grabs the specified Entities within a general radius
      * @param user ServerPlayerEntity using the Spell
@@ -16,7 +17,7 @@ public class GrabNearEntities {
      * @param entity Type of Entity class to search for
      * @return Returns a List of all Entities found
      */
-    public List<? extends  Entity> quickGrabNearEntities(ServerPlayerEntity user, BlockPos pos, int radius, Class<? extends net.minecraft.entity.Entity> entity) {
+    public static List<? extends Entity> quickGrabNearEntities(ServerPlayerEntity user, BlockPos pos, int radius, Class<? extends net.minecraft.entity.Entity> entity) {
         Box area = new Box(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         List<? extends Entity> entities = user.getWorld().getNonSpectatingEntities(entity, area);
         entities.remove(user);
@@ -32,11 +33,12 @@ public class GrabNearEntities {
      * @param entity Type of Entity class to search for
      * @return Returns a List of all Entities found
      */
-    public List<? extends  Entity> thoroughGrabNearEntities(ServerPlayerEntity user, BlockPos pos, int radius, Class<? extends net.minecraft.entity.Entity> entity) {
+    public static List<? extends  Entity> thoroughGrabNearEntities(ServerPlayerEntity user, BlockPos pos, int radius, Class<? extends net.minecraft.entity.Entity> entity) {
         Box area = new Box(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         List<? extends  Entity> entities = user.getWorld().getNonSpectatingEntities(entity, area);
         entities.remove(user);
         entities.removeIf(entity1 -> !pos.isWithinDistance(entity1.getPos(), radius));
         return entities;
     }
+
 }
