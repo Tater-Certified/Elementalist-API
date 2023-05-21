@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ElementalistApi implements ModInitializer {
 
-    public static final Item WAND = new Wand(new FabricItemSettings());
+    public final Item WAND = new Wand(new FabricItemSettings());
 
     @Override
     public void onInitialize() {
