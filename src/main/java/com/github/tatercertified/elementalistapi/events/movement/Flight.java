@@ -1,10 +1,10 @@
 package com.github.tatercertified.elementalistapi.events.movement;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class Flight extends BasicSpellEvent {
+public class Flight extends BasicDelayedSpellEvent {
     protected ServerPlayerEntity user;
     public Flight(int start_tick, int duration, ServerPlayerEntity reference) {
         super(start_tick, duration, reference);

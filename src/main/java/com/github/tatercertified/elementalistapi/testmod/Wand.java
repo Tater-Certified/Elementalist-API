@@ -2,6 +2,7 @@ package com.github.tatercertified.elementalistapi.testmod;
 
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.summoner.Summoner;
+import net.minecraft.item.Items;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ public class Wand extends Summoner {
         spells.add(new CTDTestSpell(3, 600, "Connect The Dots Test Spell"));
         spells.add(new LungeSpellTest(1, 200, "Lunge Test Spell"));
         spells.add(new FlyingTestSpell(3, 400, "Flight Test Spell"));
+        spells.add(new EntityRainTest(3, 400, "Entity Rain Test Spell", Items.GOLDEN_SWORD, 40));
+        spells.add(new LaserTestSpell(3, 600, "Laser Test Spell"));
         return spells;
     }
 }

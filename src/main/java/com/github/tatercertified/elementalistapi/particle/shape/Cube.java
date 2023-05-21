@@ -1,9 +1,9 @@
 package com.github.tatercertified.elementalistapi.particle.shape;
 
-import com.github.tatercertified.elementalistapi.particle.functions.Linear;
+import com.github.tatercertified.elementalistapi.particle.functions.Single;
 import net.minecraft.particle.ParticleEffect;
 
-public class Cube extends Linear {
+public class Cube extends Single {
     protected int growth;
 
     public Cube(int start_tick, int duration, int growth, ParticleEffect particle) {

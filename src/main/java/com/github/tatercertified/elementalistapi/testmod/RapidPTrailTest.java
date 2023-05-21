@@ -1,7 +1,7 @@
 package com.github.tatercertified.elementalistapi.testmod;
 
 import com.github.tatercertified.elementalistapi.events.impact.Stun;
-import com.github.tatercertified.elementalistapi.particle.functions.Linear;
+import com.github.tatercertified.elementalistapi.particle.functions.Single;
 import com.github.tatercertified.elementalistapi.spell.BasicRapidFireSpell;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -15,12 +15,12 @@ public class RapidPTrailTest extends BasicRapidFireSpell {
     @Override
     public void onEntityCollision(ServerPlayerEntity user, LivingEntity damaged) {
         super.onEntityCollision(user, damaged);
-        new Stun(60, damaged);
+        new Stun(60, damaged).event();
     }
 
     @Override
     public void addEvents() {
         super.addEvents();
-        events.add(new Linear(0, 10000, ParticleTypes.ELECTRIC_SPARK));
+        events.add(new Single(0, 10000, ParticleTypes.ELECTRIC_SPARK));
     }
 }

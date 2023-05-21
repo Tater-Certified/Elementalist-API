@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.mixin;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.BasicRapidFireSpell;
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.summoner.Summoner;
@@ -28,7 +28,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     @Shadow public abstract void sendMessage(Text message);
     public ArrayList<BasicSpell> spells = new ArrayList<>();
     public ArrayList<BasicRapidFireSpell> delay = new ArrayList<>();
-    public ArrayList<BasicSpellEvent> events = new ArrayList<>();
+    public ArrayList<BasicDelayedSpellEvent> events = new ArrayList<>();
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -53,7 +53,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     }
 
     @Override
-    public ArrayList<BasicSpellEvent> events() {
+    public ArrayList<BasicDelayedSpellEvent> events() {
         return events;
     }
 
@@ -115,7 +115,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
      */
     public void tickEvents() {
         if (!events.isEmpty()) {
-            events.removeIf(BasicSpellEvent::tick);
+            events.removeIf(BasicDelayedSpellEvent::tick);
         }
     }
 }

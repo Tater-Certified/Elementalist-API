@@ -1,5 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
+import com.github.tatercertified.elementalistapi.events.time.KillTargetEntity;
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -40,5 +41,10 @@ public class BasicStaticSpell extends BasicSpell{
         entity.setInvulnerable(true);
         Vec3d position = new Vec3d(user.getX(), user.getEyeY() - 0.25, user.getZ());
         entity.setPosition(position);
+    }
+
+    @Override
+    public void addEvents() {
+        events.add(new KillTargetEntity(this.cooldown, 1));
     }
 }

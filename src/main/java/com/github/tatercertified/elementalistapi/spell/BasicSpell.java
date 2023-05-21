@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.spell;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
@@ -15,7 +15,7 @@ public class BasicSpell {
     public boolean usable;
     protected String name;
 
-    public ArrayList<BasicSpellEvent> events = new ArrayList<>();
+    public ArrayList<BasicDelayedSpellEvent> events = new ArrayList<>();
 
     /**
      * Basic spell for all other spell types
@@ -66,7 +66,7 @@ public class BasicSpell {
     /**
      * @return Returns all BasicSpellEvents in a Spell
      */
-    public ArrayList<BasicSpellEvent> listEvents() {
+    public ArrayList<BasicDelayedSpellEvent> listEvents() {
         return events;
     }
 

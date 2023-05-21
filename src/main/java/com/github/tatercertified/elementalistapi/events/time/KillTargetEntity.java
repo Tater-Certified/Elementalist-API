@@ -1,9 +1,9 @@
 package com.github.tatercertified.elementalistapi.events.time;
 
-import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
+import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import net.minecraft.entity.Entity;
 
-public class KillTargetEntity extends BasicSpellEvent {
+public class KillTargetEntity extends BasicDelayedSpellEvent {
     /**
      * Kills the TargetEntity on start_tick
      * @param start_tick Which tick to kill the TargetEntity
