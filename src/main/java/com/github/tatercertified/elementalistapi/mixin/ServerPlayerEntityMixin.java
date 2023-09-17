@@ -87,7 +87,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
                     spell.active_fire_delay--;
                 } else {
                     spell.resetFireDelay();
-                    if (!spell.launchNewTargetEntity(((ServerPlayerEntity)(Object)this), world)) {
+                    if (!spell.launchNewTargetEntity(((ServerPlayerEntity)(Object)this), getWorld())) {
                         iterator_delay.remove();
                     }
                 }
