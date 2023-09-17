@@ -29,8 +29,8 @@ public class CTDEngine extends BasicParticle {
     @Override
     public void event() {
         if (executor == null) {
-            executor = new CTDExecutor(EntityType.SNOWBALL, target.world, target.getPos(), points, duration, particle,false);
-            target.world.spawnEntity(executor);
+            executor = new CTDExecutor(EntityType.SNOWBALL, target.getWorld(), target.getPos(), points, duration, particle,false);
+            target.getWorld().spawnEntity(executor);
             executor.setPosition(target.getPos());
             executor.setNoGravity(true);
         }

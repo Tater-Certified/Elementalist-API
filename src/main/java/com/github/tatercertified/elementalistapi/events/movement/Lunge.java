@@ -18,12 +18,11 @@ public class Lunge {
         if (enemy != null) {
             System.out.println(calcVelocity(enemy));
             user.setVelocity(calcVelocity(enemy));
-            user.velocityModified = true;
         } else {
             System.out.println(calcVelocity());
             user.setVelocity(calcVelocity());
-            user.velocityModified = true;
         }
+        user.velocityModified = true;
     }
 
     private Vec3d calcVelocity(ServerPlayerEntity enemy) {

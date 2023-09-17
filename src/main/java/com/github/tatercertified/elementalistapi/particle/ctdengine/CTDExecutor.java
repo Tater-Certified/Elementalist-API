@@ -55,7 +55,7 @@ public class CTDExecutor extends SnowballEntity {
                 cached_velocity = calcVelocity();
             }
         }
-        this.getServer().getWorld(world.getRegistryKey()).spawnParticles(particle, this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 1.0);
+        this.getServer().getWorld(getWorld().getRegistryKey()).spawnParticles(particle, this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 1.0);
         this.setVelocity(cached_velocity);
     }
 
