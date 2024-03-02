@@ -1,11 +1,12 @@
 package com.github.tatercertified.elementalistapi.events;
 
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class BasicDelayedSpellEvent extends BasicSpellEvent {
 
-    protected ServerPlayerEntity reference;
+    protected LivingEntity reference;
     protected int start_tick;
     public int end_tick;
     public TargetEntity target;
@@ -66,5 +67,13 @@ public class BasicDelayedSpellEvent extends BasicSpellEvent {
      */
     public void addTarget(TargetEntity target) {
         this.target = target;
+    }
+
+    /**
+     * Sets the Reference
+     * @param entity LivingEntity to reference
+     */
+    public void addReference(LivingEntity entity) {
+        this.reference = entity;
     }
 }

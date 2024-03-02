@@ -2,6 +2,9 @@ package com.github.tatercertified.elementalistapi.testmod;
 
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
 import com.github.tatercertified.elementalistapi.summoner.Summoner;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class Wand extends Summoner {
         spells.add(new FlyingTestSpell(3, 400, "Flight Test Spell"));
         spells.add(new EntityRainTest(3, 400, "Entity Rain Test Spell", Items.GOLDEN_SWORD, 40));
         spells.add(new LaserTestSpell(3, 600, "Laser Test Spell"));
+        spells.add(new OffensiveTestSpell(1, 400, "Offensive Test Spell", 10, LivingEntity.class, new StatusEffectInstance(StatusEffects.SPEED, 400, 4)));
         return spells;
     }
 }

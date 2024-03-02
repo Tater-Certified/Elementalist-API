@@ -37,7 +37,7 @@ public class Lunge {
     }
 
     private ServerPlayerEntity findClosestEntity() {
-        List<ServerPlayerEntity> players = (List<ServerPlayerEntity>) EntityUtils.quickGrabNearEntities(user, user.getBlockPos(), 200, ServerPlayerEntity.class);
+        List<ServerPlayerEntity> players = (List<ServerPlayerEntity>) EntityUtils.quickGrabNearEntities(user, user.getBlockPos(), 200, ServerPlayerEntity.class, true);
         ServerPlayerEntity nearest = null;
         double distance = 0;
         for (ServerPlayerEntity player : players) {
