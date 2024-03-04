@@ -2,6 +2,7 @@ package com.github.tatercertified.elementalistapi.spell;
 
 import com.github.tatercertified.elementalistapi.events.time.KillTargetEntity;
 import com.github.tatercertified.elementalistapi.util.EntityUtils;
+import com.github.tatercertified.elementalistapi.util.StatusEffectInstanceInterface;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -39,7 +40,7 @@ public class BasicOffensiveSpell extends BasicStaticSpell {
 
         for (Entity entity : list) {
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.setStatusEffect(this.effect, user);
+                livingEntity.setStatusEffect(((StatusEffectInstanceInterface)this.effect).copy(), user);
             }
         }
 

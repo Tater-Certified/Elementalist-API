@@ -6,7 +6,8 @@
   "mixins": [
     "PersistentProjectileEntityMixin",
     "ServerPlayerEntityMixin",
-    "ServerPlayNetworkHandlerMixin"
+    "ServerPlayNetworkHandlerMixin",
+    "StatusEffectInstanceMixin"
   ],
   "client": [
   ],
