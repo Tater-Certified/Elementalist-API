@@ -18,15 +18,15 @@ public class PlayerUtils {
         Vec3d pos = hitResult.getPos();
         if (hitResult.getType() == HitResult.Type.BLOCK && block != null) {
             block.setPosition(pos);
-            block.setEntity(player);
+            block.setReference(player);
             block.event();
         } else if (hitResult.getType() == HitResult.Type.ENTITY && entity != null) {
             entity.setPosition(pos);
-            entity.setEntity(player);
+            entity.setReference(player);
             entity.event();
         } else if (miss != null) {
             miss.setPosition(pos);
-            miss.setEntity(player);
+            miss.setReference(player);
             miss.event();
         }
         return pos;

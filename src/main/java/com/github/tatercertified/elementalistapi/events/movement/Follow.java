@@ -1,6 +1,7 @@
 package com.github.tatercertified.elementalistapi.events.movement;
 
 import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
+import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
@@ -11,10 +12,8 @@ public class Follow extends BasicDelayedSpellEvent {
 
     @Override
     public void event() {
-        if (target != null) {
-            final ServerPlayerEntity reference = (ServerPlayerEntity) target.getOwner();
-            Vec3d position = new Vec3d(reference.getX(), reference.getEyeY() - 0.25, reference.getZ());
-            target.setPosition(position);
+        if (this.reference != null) {
+            this.setPosition(new Vec3d(reference.getX(), reference.getEyeY() - 0.25, reference.getZ()));
         }
     }
 }

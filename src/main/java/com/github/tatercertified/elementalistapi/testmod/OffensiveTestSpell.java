@@ -6,6 +6,8 @@ import com.github.tatercertified.elementalistapi.util.shape_iterator.CircleItera
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 
 public class OffensiveTestSpell extends BasicOffensiveSpell {
     /**

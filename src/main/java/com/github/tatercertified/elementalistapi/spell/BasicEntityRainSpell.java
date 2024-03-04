@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 import java.util.Objects;
 
-public class BasicEntityRainSpell extends BasicStaticSpell{
+public class BasicEntityRainSpell extends BasicStaticSpell {
     /**
      * Basic spell for stationary entity raining Spells
      *
@@ -30,9 +30,8 @@ public class BasicEntityRainSpell extends BasicStaticSpell{
     @Override
     public void onCast(ServerPlayerEntity user, World world) {
         super.onCast(user, world);
-        Vec3d spawn_pos = entity.getPos();
         BasicRainingEntity basic_raining_entity = new BasicRainingEntity(item.getDefaultStack(), PlayerUtils.vec3dToBlockPos(Objects.requireNonNull(PlayerUtils.getTargetBlockPos(user, distance))), 200, world);
         world.spawnEntity(basic_raining_entity.asEntity());
-        basic_raining_entity.asEntity().setPos(spawn_pos.x, spawn_pos.y, spawn_pos.z);
+        basic_raining_entity.asEntity().setPos(this.pos.x, this.pos.y, this.pos.z);
     }
 }

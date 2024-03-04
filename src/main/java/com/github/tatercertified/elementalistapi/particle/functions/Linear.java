@@ -3,6 +3,7 @@ package com.github.tatercertified.elementalistapi.particle.functions;
 import com.github.tatercertified.elementalistapi.events.BasicSpellEvent;
 import com.github.tatercertified.elementalistapi.particle.BasicParticle;
 import com.github.tatercertified.elementalistapi.util.PlayerUtils;
+import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -34,23 +35,23 @@ public class Linear extends BasicParticle {
     }
 
     @Override
-    public boolean tick() {
+    public boolean tick(Entity user) {
         if (workable_ticks <= 0) {
-            createLine(target.getPos(), PlayerUtils.getTargetBlockPos((ServerPlayerEntity) target.getOwner(), distance, block_event, entity_event, miss_event), distance_between_points);
+            createLine(this.getPosition(), PlayerUtils.getTargetBlockPos((ServerPlayerEntity) user, distance, block_event, entity_event, miss_event), distance_between_points, user);
             workable_ticks = ticks;
         } else {
             workable_ticks--;
         }
-        return super.tick();
+        return super.tick(user);
     }
 
-    private void createLine(Vec3d start, Vec3d destination, double distanceBetweenPoints) {
+    private void createLine(Vec3d start, Vec3d destination, double distanceBetweenPoints, Entity user) {
         Vec3d direction = destination.subtract(start).normalize();
         double totalDistance = start.distanceTo(destination);
 
         for (double distance = 0.0; distance < totalDistance; distance += distanceBetweenPoints) {
             Vec3d point = start.add(direction.multiply(distance));
-            createParticle(point.x, point.y, point.z, 1, 0);
+            createParticle(point.x, point.y, point.z, user, 1, 0);
         }
     }
 }

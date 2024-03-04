@@ -1,15 +1,15 @@
 package com.github.tatercertified.elementalistapi.events;
 
 import com.github.tatercertified.elementalistapi.spell.target.TargetEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 
-public class BasicDelayedSpellEvent extends BasicSpellEvent {
+public class BasicDelayedSpellEvent extends BasicTargetedSpellEvent {
 
-    protected LivingEntity reference;
     protected int start_tick;
     public int end_tick;
-    public TargetEntity target;
     public int tick = 0;
 
     /**
@@ -35,11 +35,23 @@ public class BasicDelayedSpellEvent extends BasicSpellEvent {
     }
 
     /**
+     * Basic Event that all other events should extend for Vec3D
+     * @param startTick first tick to activate the event
+     * @param duration duration of the event in ticks; 1 for instant
+     * @param position the position of the spell event
+     */
+    public BasicDelayedSpellEvent(int startTick, int duration, Vec3d position) {
+        this.start_tick = startTick;
+        end_tick = start_tick + duration;
+        this.setPosition(position);
+    }
+
+    /**
      * Main ticking function for all Events
      * @return If the Event has completed
      */
-    public boolean tick() {
-        if(target != null && target.isRemoved()) {
+    public boolean tick(Entity user) {
+        if((this.reference != null && this.reference.isRemoved()) || (this.target != null && this.target.isRemoved()) ) {
             finished();
             return true;
         }
@@ -62,18 +74,26 @@ public class BasicDelayedSpellEvent extends BasicSpellEvent {
     }
 
     /**
-     * Sets the TargetEntity
-     * @param target TargetEntity
+     * Gets the position of the Spell
+     * @return Vec3D of the position
      */
-    public void addTarget(TargetEntity target) {
-        this.target = target;
+    public Vec3d getPosition() {
+        return this.position;
     }
 
     /**
-     * Sets the Reference
-     * @param entity LivingEntity to reference
+     * Gets the position of the reference Entity
+     * @return Vec3D of the reference Entity
      */
-    public void addReference(LivingEntity entity) {
-        this.reference = entity;
+    public Vec3d getReferencePosition() {
+        return this.reference.getPos();
+    }
+
+    /**
+     * Gets the position of the target Entity
+     * @return Vec3D of the TargetEntity
+     */
+    public Vec3d getTargetPosition() {
+        return this.target.getPos();
     }
 }

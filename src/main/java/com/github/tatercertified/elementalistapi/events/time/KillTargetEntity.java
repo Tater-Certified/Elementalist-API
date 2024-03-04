@@ -14,7 +14,7 @@ public class KillTargetEntity extends BasicDelayedSpellEvent {
     }
 
     @Override
-    public boolean tick() {
+    public boolean tick(Entity user) {
         if(tick > start_tick) {
             return true;
         }
@@ -27,6 +27,6 @@ public class KillTargetEntity extends BasicDelayedSpellEvent {
 
     @Override
     public void event() {
-        target.remove(Entity.RemovalReason.DISCARDED);
+        this.reference.remove(Entity.RemovalReason.DISCARDED);
     }
 }

@@ -29,9 +29,10 @@ public class CTDEngine extends BasicParticle {
     @Override
     public void event() {
         if (executor == null) {
-            executor = new CTDExecutor(EntityType.SNOWBALL, target.getWorld(), target.getPos(), points, duration, particle,false);
-            target.getWorld().spawnEntity(executor);
-            executor.setPosition(target.getPos());
+            Vec3d pos = this.getPosition();
+            executor = new CTDExecutor(EntityType.SNOWBALL, this.reference.getWorld(), pos, points, duration, particle,false);
+            this.reference.getWorld().spawnEntity(executor);
+            executor.setPosition(pos);
             executor.setNoGravity(true);
         }
         executor.draw();
@@ -41,6 +42,6 @@ public class CTDEngine extends BasicParticle {
     @Override
     public void finished() {
         executor.remove(Entity.RemovalReason.DISCARDED);
-        target.remove(Entity.RemovalReason.DISCARDED);
+        this.reference.remove(Entity.RemovalReason.DISCARDED);
     }
 }

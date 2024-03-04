@@ -4,9 +4,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.math.Vec3d;
 
-public class BasicSpellEvent implements Cloneable{
+public class BasicSpellEvent implements Cloneable {
     public Vec3d position;
-    public Entity entity;
+    public Entity reference;
     public DamageSource source;
 
     public BasicSpellEvent() {
@@ -29,16 +29,26 @@ public class BasicSpellEvent implements Cloneable{
     }
 
     /**
-     * Common variables in SpellEvents
+     * Sets the Position where the Event will occur
+     * @param position Vec3D of Position
      */
     public void setPosition(Vec3d position) {
         this.position = position;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    /**
+     * Sets the reference Entity of the spell.
+     * This entity is usually the user of the Summoner item
+     * @param entity reference Entity
+     */
+    public void setReference(Entity entity) {
+        this.reference = entity;
     }
 
+    /**
+     * Sets the DamageSource of the Event
+     * @param source DamageSource
+     */
     public void setSource(DamageSource source) {
         this.source = source;
     }

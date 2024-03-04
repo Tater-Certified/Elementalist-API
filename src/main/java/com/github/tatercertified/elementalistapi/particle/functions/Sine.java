@@ -1,7 +1,9 @@
 package com.github.tatercertified.elementalistapi.particle.functions;
 
 import com.github.tatercertified.elementalistapi.particle.BasicParticle;
+import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.math.Vec3d;
 
 public class Sine extends BasicParticle {
 
@@ -16,10 +18,11 @@ public class Sine extends BasicParticle {
     }
 
     @Override
-    public boolean tick() {
+    public boolean tick(Entity user) {
         double offset = Math.cos(x)*amplitude;
-        createParticle(getPos().x, getPos().y + offset, getPos().z, 1, 0.3);
+        Vec3d pos = this.getTargetPosition();
+        createParticle(pos.x, pos.y + offset, pos.z, user, 1, 0.3);
         x = x + increment;
-        return super.tick();
+        return super.tick(user);
     }
 }

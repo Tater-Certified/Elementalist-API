@@ -5,31 +5,29 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
 public class Flight extends BasicDelayedSpellEvent {
-    protected ServerPlayerEntity user;
     public Flight(int start_tick, int duration, ServerPlayerEntity reference) {
         super(start_tick, duration, reference);
-        this.user = reference;
     }
 
     @Override
     public void event() {
-        if (!user.hasNoGravity()) {
-            user.setNoGravity(true);
-            user.setVelocity(new Vec3d(user.getVelocity().x,2,user.getVelocity().z));
-            user.velocityModified = true;
+        if (!reference.hasNoGravity()) {
+            reference.setNoGravity(true);
+            reference.setVelocity(new Vec3d(reference.getVelocity().x,2,reference.getVelocity().z));
+            reference.velocityModified = true;
         }
-        if (user.isSneaking()) {
-            user.setVelocity(new Vec3d(user.getVelocity().x, -0.1, user.getVelocity().z));
-            user.velocityModified = true;
+        if (reference.isSneaking()) {
+            reference.setVelocity(new Vec3d(reference.getVelocity().x, -0.1, reference.getVelocity().z));
+            reference.velocityModified = true;
         }
-        if (user.getPitch() == -90) {
-            user.setVelocity(user.getVelocity().x, 0.1, user.getVelocity().z);
-            user.velocityModified = true;
+        if (reference.getPitch() == -90) {
+            reference.setVelocity(reference.getVelocity().x, 0.1, reference.getVelocity().z);
+            reference.velocityModified = true;
         }
     }
 
     @Override
     public void finished() {
-        user.setNoGravity(false);
+        reference.setNoGravity(false);
     }
 }

@@ -2,6 +2,7 @@ package com.github.tatercertified.elementalistapi.particle.shape;
 
 import com.github.tatercertified.elementalistapi.particle.functions.Single;
 import com.github.tatercertified.elementalistapi.util.shape_iterator.ShapeIterator;
+import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.math.Vec3d;
 
@@ -15,15 +16,15 @@ public class ShapeParticle extends Single {
     }
 
     @Override
-    public boolean tick() {
+    public boolean tick(Entity user) {
 
-        this.shapeIterator.setCenterPos(this.target.getPos());
+        this.shapeIterator.setCenterPos(this.getReferencePosition());
 
         while (this.shapeIterator.hasNext()) {
             Vec3d vec3d = this.shapeIterator.next();
-            this.createParticle(vec3d.x, vec3d.y, vec3d.z, 1, 0);
+            this.createParticle(vec3d.x, vec3d.y, vec3d.z, user, 1, 0);
         }
 
-        return super.tick();
+        return super.tick(user);
     }
 }

@@ -114,7 +114,7 @@ public class TargetEntity extends PersistentProjectileEntity implements PolymerE
      */
     private void setTarget(ArrayList<BasicDelayedSpellEvent> arrayList) {
         for (BasicDelayedSpellEvent event : arrayList) {
-            event.addTarget(this);
+            event.setTarget(this);
         }
     }
 }

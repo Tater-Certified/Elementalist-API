@@ -115,7 +115,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
      */
     public void tickEvents() {
         if (!events.isEmpty()) {
-            events.removeIf(BasicDelayedSpellEvent::tick);
+            events.removeIf(basicDelayedSpellEvent -> basicDelayedSpellEvent.tick(this));
         }
     }
 }

@@ -13,6 +13,6 @@ public class LaserTestSpell extends BasicFollowSpell {
     @Override
     public void addEvents() {
         super.addEvents();
-        events.add(new Linear(0, 200, 0, 40, 0.1, ParticleTypes.ELECTRIC_SPARK, new Explode(2.0F, null, null), new Explode(2.0F, null, null), null));
+        events.add(new Linear(0, 200, 0, 40, 0.1, ParticleTypes.ELECTRIC_SPARK, new Explode(2.0F, null), new Explode(2.0F, null), null));
     }
 }
