@@ -1,6 +1,6 @@
 package com.github.tatercertified.elementalistapi.mixin;
 
-import com.github.tatercertified.elementalistapi.summoner.Summoner;
+import com.github.tatercertified.elementalistapi.summoner.MultiSpellSummoner;
 import net.minecraft.item.Item;
 import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.network.listener.TickablePacketListener;
@@ -21,9 +21,9 @@ public abstract class ServerPlayNetworkHandlerMixin implements EntityTrackingLis
 
     @Inject(method = "onHandSwing", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;swingHand(Lnet/minecraft/util/Hand;)V"))
     public void onHandSwing(HandSwingC2SPacket packet, CallbackInfo ci) {
-        if (player.isSneaking() && player.getMainHandStack().getItem() instanceof Summoner) {
+        if (player.isSneaking() && player.getMainHandStack().getItem() instanceof MultiSpellSummoner) {
             Item summoner = player.getMainHandStack().getItem();
-            ((Summoner)summoner).cycleSpellsReverse();
+            ((MultiSpellSummoner)summoner).cycleSpellsReverse();
         }
     }
 }

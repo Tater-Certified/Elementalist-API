@@ -3,7 +3,7 @@ package com.github.tatercertified.elementalistapi.mixin;
 import com.github.tatercertified.elementalistapi.events.BasicDelayedSpellEvent;
 import com.github.tatercertified.elementalistapi.spell.BasicRapidFireSpell;
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
-import com.github.tatercertified.elementalistapi.summoner.Summoner;
+import com.github.tatercertified.elementalistapi.summoner.MultiSpellSummoner;
 import com.github.tatercertified.elementalistapi.util.ServerPlayerEntityAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.PlayerEntity;
@@ -100,8 +100,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
      */
     public void tickSpellHUD() {
         Item holding = this.getMainHandStack().getItem();
-        if (holding instanceof Summoner) {
-            BasicSpell current_spell = ((Summoner) holding).current_spell;
+        if (holding instanceof MultiSpellSummoner) {
+            BasicSpell current_spell = ((MultiSpellSummoner) holding).current_spell;
             String cooldown =  " | " + current_spell.active_cooldown;
             if (cooldown.equals(" | " + current_spell.getCooldown())) {
                 cooldown = "";

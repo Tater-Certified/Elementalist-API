@@ -1,7 +1,8 @@
 package com.github.tatercertified.elementalistapi.testmod;
 
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
-import com.github.tatercertified.elementalistapi.summoner.Summoner;
+import com.github.tatercertified.elementalistapi.summoner.MultiSpellSummoner;
+import eu.pb4.polymer.resourcepack.api.PolymerModelData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -9,11 +10,11 @@ import net.minecraft.item.Items;
 
 import java.util.ArrayList;
 
-public class Wand extends Summoner {
+public class Wand extends MultiSpellSummoner {
 
     public ArrayList<BasicSpell> spells;
-    public Wand(Settings settings) {
-        super(settings);
+    public Wand(Settings settings, PolymerModelData customModelData) {
+        super(settings, customModelData);
     }
 
     @Override

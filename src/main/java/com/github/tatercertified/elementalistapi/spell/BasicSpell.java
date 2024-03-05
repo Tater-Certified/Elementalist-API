@@ -14,6 +14,7 @@ public class BasicSpell {
     public int active_cooldown;
     public boolean usable;
     protected String name;
+    private int uses;
 
     public ArrayList<BasicDelayedSpellEvent> events = new ArrayList<>();
 
@@ -40,10 +41,18 @@ public class BasicSpell {
     }
 
     /**
+     * Is called when the cooldown is active, but the user is trying to use the item
+     */
+    public void onClickDuringCooldown(ServerPlayerEntity user, World world) {
+        this.uses++;
+    }
+
+    /**
      * Resets cooldown to default
      */
     public void resetCooldown() {
         this.active_cooldown = cooldown;
+        this.uses = 0;
         this.usable = true;
     }
 
@@ -61,6 +70,14 @@ public class BasicSpell {
      */
     public int getCooldown() {
         return cooldown;
+    }
+
+    /**
+     * Returns the amount of uses during cooldown
+     * @return Integer of uses
+     */
+    public int getUses() {
+        return this.uses;
     }
 
     /**

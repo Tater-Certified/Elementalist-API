@@ -1,7 +1,9 @@
 package com.github.tatercertified.elementalistapi.summoner;
 
 import com.github.tatercertified.elementalistapi.spell.BasicSpell;
+import com.github.tatercertified.elementalistapi.util.texture.ModelledPolymerItem;
 import eu.pb4.polymer.core.api.item.PolymerItem;
+import eu.pb4.polymer.resourcepack.api.PolymerModelData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,12 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class Summoner extends Item implements PolymerItem {
+public class MultiSpellSummoner extends ModelledPolymerItem implements SummonerInterface {
 
     private final ArrayList<BasicSpell> supported_spells;
     public BasicSpell current_spell;
-    public Summoner(Settings settings) {
-        super(settings);
+    public MultiSpellSummoner(Settings settings, PolymerModelData customModelData) {
+        super(settings, customModelData);
         this.supported_spells = addSpells();
         this.current_spell = supported_spells.get(0);
     }
@@ -41,8 +43,6 @@ public class Summoner extends Item implements PolymerItem {
         }
         return super.use(world, user, hand);
     }
-
-
 
     /**
      * Cycles through all supported spells
@@ -77,5 +77,15 @@ public class Summoner extends Item implements PolymerItem {
      */
     public ArrayList<BasicSpell> addSpells() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public String getSpellType() {
+        return null;
+    }
+
+    @Override
+    public String getSummonerName() {
+        return null;
     }
 }
