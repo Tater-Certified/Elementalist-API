@@ -25,7 +25,7 @@ public final class PolymerModelUtils {
     public static Item ofModelled(@NotNull String modid, @NotNull String path, @NotNull Item mask) {
         Objects.requireNonNull(path, "Invalid registry path.");
         check(mask);
-        var item = new ModelledPolymerItem(new FabricItemSettings(), getModelData(modid, path, mask));
+        var item = new ModelledPolymerItem(new FabricItemSettings().maxCount(1), getModelData(modid, path, mask));
         registerItem(modid, path, item);
         return item;
     }
@@ -43,7 +43,7 @@ public final class PolymerModelUtils {
                                                 BiFunction<Item.Settings, PolymerModelData, T> constructor) {
         Objects.requireNonNull(path, "Invalid registry path.");
         check(mask);
-        T item = constructor.apply(new FabricItemSettings(), getModelData(modid, path, mask));
+        T item = constructor.apply(new FabricItemSettings().maxCount(1), getModelData(modid, path, mask));
         registerItem(modid, path, item);
         return item;
     }
