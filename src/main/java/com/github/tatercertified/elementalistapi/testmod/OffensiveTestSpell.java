@@ -17,9 +17,10 @@ public class OffensiveTestSpell extends BasicOffensiveSpell {
      * @param searchRadius the radius in blocks that the game searches for entities
      * @param entityType   the type of entity to search for
      * @param effect       the type of effect to apply
+     * @param affectUser   if the effect should apply to the user
      */
-    public OffensiveTestSpell(int level, int cooldown, String name, int searchRadius, Class<? extends Entity> entityType, StatusEffectInstance effect) {
-        super(level, cooldown, name, searchRadius, entityType, effect);
+    public OffensiveTestSpell(int level, int cooldown, String name, int searchRadius, Class<? extends Entity> entityType, StatusEffectInstance effect, boolean affectUser) {
+        super(level, cooldown, name, searchRadius, entityType, effect, affectUser);
     }
 
     @Override

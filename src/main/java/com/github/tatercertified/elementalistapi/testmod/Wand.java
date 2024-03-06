@@ -29,7 +29,7 @@ public class Wand extends MultiSpellSummoner {
         spells.add(new FlyingTestSpell(3, 400, "Flight Test Spell"));
         spells.add(new EntityRainTest(3, 400, "Entity Rain Test Spell", Items.GOLDEN_SWORD, 40));
         spells.add(new LaserTestSpell(3, 600, "Laser Test Spell"));
-        spells.add(new OffensiveTestSpell(1, 400, "Offensive Test Spell", 10, LivingEntity.class, new StatusEffectInstance(StatusEffects.SPEED, 400, 4)));
+        spells.add(new OffensiveTestSpell(1, 400, "Offensive Test Spell", 10, LivingEntity.class, new StatusEffectInstance(StatusEffects.SPEED, 400, 4), true));
         return spells;
     }
 }
